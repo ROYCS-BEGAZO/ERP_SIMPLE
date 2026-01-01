@@ -13,4 +13,6 @@ class Stock:
             raise Exception("no hay stock")
         self.cantidades[producto.id] -= cantidad
 
+    def __str__(self):
+        return self.cantidades
 

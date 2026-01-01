@@ -16,3 +16,14 @@ class VentaService:
             raise Exception("orden vacia")
         stock.reservar_para_orden(orden)
         orden.estado = "confirmado"
+
+    def cancelar(self, orden, stock):
+        if orden.estado == "cancelado":
+            raise Exception("la order ya esta cancelada")
+        if orden.estado != "draft":
+            raise Exception("no se puede cancelar la orden")
+        stock.cancelar_orden(orden)
+        orden.lineas.clear()
+        orden.estado = "cancelado"
+        
+
