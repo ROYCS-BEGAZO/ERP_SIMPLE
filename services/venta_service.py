@@ -1,5 +1,6 @@
 from models.orden_venta import OrdenVenta
 from models.linea_venta import LineaVenta
+
 class VentaService:
     
     def crear_orden(self,id, cliente):
@@ -10,7 +11,8 @@ class VentaService:
             raise Exception("no se puede modificar la orden")
         orden.lineas.append(LineaVenta(producto, cantidad))
     
-    def confirmar(self, orden):
+    def confirmar(self, orden, stock):
         if not orden.lineas:
             raise Exception("orden vacia")
+        stock.reservar_para_orden(orden)
         orden.estado = "confirmado"
